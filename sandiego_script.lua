@@ -1,4 +1,4 @@
--- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH FREEFIX ]] --
+-- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH ENGLISH KEY SYSTEM ]] --
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -20,7 +20,7 @@ ScreenGui.Parent = parentObject
 ScreenGui.ResetOnSpawn = false
 
 -- ==========================================
--- 🔑 ОКНО ВВОДА КЛЮЧА (KEY SYSTEM GUI)
+-- 🔑 KEY SYSTEM GUI (ENGLISH)
 -- ==========================================
 local KeyWindow = Instance.new("Frame")
 KeyWindow.Name = "KeyWindow"
@@ -48,7 +48,7 @@ local KeyBox = Instance.new("TextBox")
 KeyBox.Size = UDim2.new(1, -40, 0, 40)
 KeyBox.Position = UDim2.new(0, 20, 0, 60)
 KeyBox.BackgroundColor3 = Color3.fromRGB(18, 18, 20)
-KeyBox.PlaceholderText = "Введи ключ з бота (@m1vlirbaza)..."
+KeyBox.PlaceholderText = "Enter key from bot (@m1vlirbaza)..."
 KeyBox.Text = ""
 KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyBox.PlaceholderColor3 = Color3.fromRGB(90, 90, 95)
@@ -64,10 +64,10 @@ local SubmitBtn = Instance.new("TextButton")
 SubmitBtn.Size = UDim2.new(1, -40, 0, 36)
 SubmitBtn.Position = UDim2.new(0, 20, 0, 115)
 SubmitBtn.BackgroundColor3 = Color3.fromRGB(30, 140, 70)
-SubmitBtn.Text = "ПЕРЕВІРИТИ КЛЮЧ"
+SubmitBtn.Text = "VERIFY KEY"
 SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SubmitBtn.Font = Enum.Font.GothamBold
-SubmitBtn.TextSize = 12
+SubmitBtn.TextSize = 13
 SubmitBtn.Parent = KeyWindow
 
 Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 4)
@@ -76,14 +76,14 @@ local InfoLabel = Instance.new("TextLabel")
 InfoLabel.Size = UDim2.new(1, -40, 0, 30)
 InfoLabel.Position = UDim2.new(0, 20, 0, 165)
 InfoLabel.BackgroundTransparency = 1
-InfoLabel.Text = "Ключ можна отримати в боті: @m1vlirbaza"
+InfoLabel.Text = "Get your key from bot: @m1vlirbaza"
 InfoLabel.TextColor3 = Color3.fromRGB(120, 120, 125)
 InfoLabel.Font = Enum.Font.Gotham
 InfoLabel.TextSize = 11
 InfoLabel.Parent = KeyWindow
 
 -- ==========================================
--- 🎛️ ИНТЕРФЕЙС И ГЛАВНОЕ МЕНЮ
+-- 🎛️ MAIN MENU & INTERFACE
 -- ==========================================
 local OpenBtn = Instance.new("TextButton")
 OpenBtn.Name = "OpenBtn"
@@ -262,7 +262,7 @@ local function AddTgLock(pageName)
     LockLabel.Size = UDim2.new(1, -20, 1, -20)
     LockLabel.Position = UDim2.new(0, 10, 0, 10)
     LockLabel.BackgroundTransparency = 1
-    LockLabel.Text = "Всі функції можна купити в tg - @Iyd1k"
+    LockLabel.Text = "All functions can be bought in tg - @Iyd1k"
     LockLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
     LockLabel.Font = Enum.Font.GothamBold
     LockLabel.TextSize = 18
@@ -303,7 +303,7 @@ local function CreateToggle(text, defaultValue, callback)
     Btn.Size = UDim2.new(0, 70, 0, 24)
     Btn.Position = UDim2.new(1, -80, 0.5, -12)
     Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
-    Btn.Text = state and "ВКЛ" or "ВЫКЛ"
+    Btn.Text = state and "ON" or "OFF"
     Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
     Btn.Font = Enum.Font.GothamBold
     Btn.TextSize = 10
@@ -312,7 +312,7 @@ local function CreateToggle(text, defaultValue, callback)
 
     Btn.MouseButton1Click:Connect(function()
         state = not state
-        Btn.Text = state and "ВКЛ" or "ВЫКЛ"
+        Btn.Text = state and "ON" or "OFF"
         Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
         callback(state)
     end)
@@ -450,8 +450,6 @@ CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
     
     if freecamActive then
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
-        
-        -- СКРЫВАЕМ МЕНЮ И КНОПКУ ОТКРЫТИЯ ПРИ ФРИКАМЕ
         MainWindow.Visible = false
         OpenBtn.Visible = false
         
@@ -505,8 +503,6 @@ CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
         end
         
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-        
-        -- ВОЗВРАЩАЕМ КНОПКУ МЕНЮ НАЗАД ПРИ ОТКЛЮЧЕНИИ ФРИКАМА
         OpenBtn.Visible = true
         
         for _, obj in pairs(savedGuis) do
@@ -521,7 +517,7 @@ CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
 end)
 
 -- ==========================================
--- ЛОГИКА АВТОРИЗАЦИИ И ОТКРЫТИЯ МЕНЮ
+-- AUTHORIZATION & TOGGLE LOGIC
 -- ==========================================
 SubmitBtn.MouseButton1Click:Connect(function()
     local enteredText = KeyBox.Text
@@ -532,7 +528,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         MainWindow.Visible = true
     else
         KeyBox.Text = ""
-        KeyBox.PlaceholderText = "Невірний ключ! Спробуй ще."
+        KeyBox.PlaceholderText = "Invalid key! Try again."
         BoxStroke.Color = Color3.fromRGB(180, 40, 40)
     end
 end)
