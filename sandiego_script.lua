@@ -1,4 +1,4 @@
--- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH ENGLISH KEY SYSTEM ]] --
+-- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE ]] --
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -20,7 +20,7 @@ ScreenGui.Parent = parentObject
 ScreenGui.ResetOnSpawn = false
 
 -- ==========================================
--- 🔑 KEY SYSTEM GUI (ENGLISH)
+-- 🔑 KEY SYSTEM GUI (ENGLISH & @Mrootik_bot)
 -- ==========================================
 local KeyWindow = Instance.new("Frame")
 KeyWindow.Name = "KeyWindow"
@@ -48,7 +48,7 @@ local KeyBox = Instance.new("TextBox")
 KeyBox.Size = UDim2.new(1, -40, 0, 40)
 KeyBox.Position = UDim2.new(0, 20, 0, 60)
 KeyBox.BackgroundColor3 = Color3.fromRGB(18, 18, 20)
-KeyBox.PlaceholderText = "Enter key from bot (@m1vlirbaza)..."
+KeyBox.PlaceholderText = "Enter key from bot (@Mrootik_bot)..."
 KeyBox.Text = ""
 KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyBox.PlaceholderColor3 = Color3.fromRGB(90, 90, 95)
@@ -76,7 +76,7 @@ local InfoLabel = Instance.new("TextLabel")
 InfoLabel.Size = UDim2.new(1, -40, 0, 30)
 InfoLabel.Position = UDim2.new(0, 20, 0, 165)
 InfoLabel.BackgroundTransparency = 1
-InfoLabel.Text = "Get your key from bot: @m1vlirbaza"
+InfoLabel.Text = "Get your key from bot: @Mrootik_bot"
 InfoLabel.TextColor3 = Color3.fromRGB(120, 120, 125)
 InfoLabel.Font = Enum.Font.Gotham
 InfoLabel.TextSize = 11
