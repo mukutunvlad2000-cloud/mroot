@@ -208,7 +208,6 @@ local function CreateTab(tabName)
     local TabBtn = Instance.new("TextButton")
     TabBtn.Size = UDim2.new(1, 0, 0, 32)
     TabBtn.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-    TabBtn.Text = "  " + tabName -- (fixed string concat if needed, but keeping standard ..)
     TabBtn.Text = "  " .. tabName
     TabBtn.TextColor3 = Color3.fromRGB(130, 130, 135)
     TabBtn.Font = Enum.Font.GothamMedium
@@ -543,19 +542,30 @@ local freecamToggleObj = CreateToggle("Cinematic FreeCam Mode", false, function(
 end)
 
 -- ==========================================
--- AUTHORIZATION & TOGGLE LOGIC
+-- AUTHORIZATION & TOGGLE LOGIC (FIXED)
 -- ==========================================
-SubmitBtn.MouseButton1Click:Connect(function()
+local function VerifyAndOpen()
     local enteredText = KeyBox.Text
-    if string.sub(enteredText, 1, 6) == "MROOT-" or #enteredText > 5 then
+    -- Прибираємо зайві пробіли з початку і кінця
+    enteredText = string.gsub(enteredText, "^%s*(.-)%s*$", "%1")
+    
+    if #enteredText > 0 then
         KeyWindow:Destroy()
         OpenBtn.Visible = true
         FpsFrame.Visible = true
         MainWindow.Visible = true
     else
         KeyBox.Text = ""
-        KeyBox.PlaceholderText = "Invalid key! Try again."
+        KeyBox.PlaceholderText = "Enter valid key!"
         BoxStroke.Color = Color3.fromRGB(180, 40, 40)
+    end
+end
+
+SubmitBtn.MouseButton1Click:Connect(VerifyAndOpen)
+
+KeyBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        VerifyAndOpen()
     end
 end)
 
