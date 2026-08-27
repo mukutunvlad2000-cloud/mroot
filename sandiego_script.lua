@@ -208,6 +208,7 @@ local function CreateTab(tabName)
     local TabBtn = Instance.new("TextButton")
     TabBtn.Size = UDim2.new(1, 0, 0, 32)
     TabBtn.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+    TabBtn.Text = "  " + tabName -- (fixed string concat if needed, but keeping standard ..)
     TabBtn.Text = "  " .. tabName
     TabBtn.TextColor3 = Color3.fromRGB(130, 130, 135)
     TabBtn.Font = Enum.Font.GothamMedium
@@ -259,13 +260,13 @@ tabButtons["Combat"].TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local function AddTgLock(pageName)
     local LockLabel = Instance.new("TextLabel")
-    LockLabel.Size = UDim2.new(1, -20, 1, -20)
-    LockLabel.Position = UDim2.new(0, 10, 0, 10)
+    LockLabel.Size = UDim2.new(1, 0, 1, 0)
+    LockLabel.Position = UDim2.new(0, 0, 0, 0)
     LockLabel.BackgroundTransparency = 1
-    LockLabel.Text = "All functions can be bought in TG:\n@Iyd1k or @Managerm1vlir"
+    LockLabel.Text = "Buy functions in TG:\n@Managerm1vlir & @Iyd1k"
     LockLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
     LockLabel.Font = Enum.Font.GothamBold
-    LockLabel.TextSize = 16
+    LockLabel.TextSize = 15
     LockLabel.TextWrapped = true
     LockLabel.TextXAlignment = Enum.TextXAlignment.Center
     LockLabel.TextYAlignment = Enum.TextYAlignment.Center
@@ -279,13 +280,13 @@ AddTgLock("Settings")
 -- Сторінка Config / Plus Version
 local ConfigPage = pages["Config"]
 local PlusInfoLabel = Instance.new("TextLabel")
-PlusInfoLabel.Size = UDim2.new(1, -20, 1, -20)
-PlusInfoLabel.Position = UDim2.new(0, 10, 0, 10)
+PlusInfoLabel.Size = UDim2.new(1, 0, 1, 0)
+PlusInfoLabel.Position = UDim2.new(0, 0, 0, 0)
 PlusInfoLabel.BackgroundTransparency = 1
-PlusInfoLabel.Text = "MRoot Plus Version coming soon!\nBuy & info in Telegram:\n@Managerm1vlir / @Iyd1k"
+PlusInfoLabel.Text = "MRoot Plus Version coming soon!\nBuy in Telegram:\n@Managerm1vlir & @Iyd1k"
 PlusInfoLabel.TextColor3 = Color3.fromRGB(200, 200, 205)
 PlusInfoLabel.Font = Enum.Font.GothamBold
-PlusInfoLabel.TextSize = 16
+PlusInfoLabel.TextSize = 15
 PlusInfoLabel.TextWrapped = true
 PlusInfoLabel.TextXAlignment = Enum.TextXAlignment.Center
 PlusInfoLabel.TextYAlignment = Enum.TextYAlignment.Center
