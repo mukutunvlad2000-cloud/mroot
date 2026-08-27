@@ -1,4 +1,4 @@
--- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH U KEYBIND ]] --
+-- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA PLUS & CONTACTS ]] --
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -164,7 +164,7 @@ WindowStroke.Parent = MainWindow
 local Header = Instance.new("TextLabel")
 Header.Size = UDim2.new(1, 0, 0, 45)
 Header.BackgroundTransparency = 1
-Header.Text = "   MRoot Beta (Authorized)"
+Header.Text = "   MRoot Beta (Authorized) • m1Vlir"
 Header.TextColor3 = Color3.fromRGB(140, 140, 145)
 Header.Font = Enum.Font.Gotham
 Header.TextSize = 14
@@ -275,7 +275,21 @@ end
 AddTgLock("Combat")
 AddTgLock("Utils")
 AddTgLock("Settings")
-AddTgLock("Config")
+
+-- Спеціальна сторінка Config / Plus Version з твоїми контактами
+local ConfigPage = pages["Config"]
+local PlusInfoLabel = Instance.new("TextLabel")
+PlusInfoLabel.Size = UDim2.new(1, -20, 1, -20)
+PlusInfoLabel.Position = UDim2.new(0, 10, 0, 10)
+PlusInfoLabel.BackgroundTransparency = 1
+PlusInfoLabel.Text = "MRoot Plus Version coming soon!\nBuy & info in Telegram:\nManager: @Managerm1vlir\nor @Iyd1k"
+PlusInfoLabel.TextColor3 = Color3.fromRGB(200, 200, 205)
+PlusInfoLabel.Font = Enum.Font.GothamBold
+PlusInfoLabel.TextSize = 16
+PlusInfoLabel.TextWrapped = true
+PlusInfoLabel.TextXAlignment = Enum.TextXAlignment.Center
+PlusInfoLabel.TextYAlignment = Enum.TextYAlignment.Center
+PlusInfoLabel.Parent = ConfigPage
 
 local function CreateToggle(text, defaultValue, callback)
     local state = defaultValue
@@ -318,11 +332,14 @@ local function CreateToggle(text, defaultValue, callback)
     end)
     return {
         Frame = Frame,
+        GetState = function() return state end,
         SetState = function(newState)
-            state = newState
-            Btn.Text = state and "ON" or "OFF"
-            Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
-            callback(state)
+            if state ~= newState then
+                state = newState
+                Btn.Text = state and "ON" or "OFF"
+                Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
+                callback(state)
+            end
         end
     }
 end
@@ -556,8 +573,8 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if input.KeyCode == Enum.KeyCode.RightShift and not freecamActive then
             ToggleGui()
         elseif input.KeyCode == Enum.KeyCode.U then
-            -- Перемикання фрикама по кнопці U
-            freecamToggleObj.SetState(not freecamActive)
+            local newState = not freecamToggleObj.GetState()
+            freecamToggleObj.SetState(newState)
         end
     end
 end)
