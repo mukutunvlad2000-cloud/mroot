@@ -1,4 +1,4 @@
--- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE ]] --
+-- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH U KEYBIND ]] --
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -20,7 +20,7 @@ ScreenGui.Parent = parentObject
 ScreenGui.ResetOnSpawn = false
 
 -- ==========================================
--- 🔑 KEY SYSTEM GUI (ENGLISH & @Mrootik_bot)
+-- 🔑 KEY SYSTEM GUI (ENGLISH)
 -- ==========================================
 local KeyWindow = Instance.new("Frame")
 KeyWindow.Name = "KeyWindow"
@@ -316,7 +316,15 @@ local function CreateToggle(text, defaultValue, callback)
         Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
         callback(state)
     end)
-    return Frame
+    return {
+        Frame = Frame,
+        SetState = function(newState)
+            state = newState
+            Btn.Text = state and "ON" or "OFF"
+            Btn.BackgroundColor3 = state and Color3.fromRGB(30, 140, 70) or Color3.fromRGB(140, 40, 40)
+            callback(state)
+        end
+    }
 end
 
 local defaultLighting = {
@@ -445,7 +453,7 @@ CreateSpeedBtn("1.5x", 1.5, 0)
 CreateSpeedBtn("3.0x", 3.0, 46)
 CreateSpeedBtn("5.0x", 5.0, 92)
 
-CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
+local freecamToggleObj = CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
     freecamActive = enabled
     
     if freecamActive then
@@ -544,8 +552,13 @@ end
 OpenBtn.MouseButton1Click:Connect(ToggleGui)
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if not gameProcessed and input.KeyCode == Enum.KeyCode.RightShift and not freecamActive then
-        ToggleGui()
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.RightShift and not freecamActive then
+            ToggleGui()
+        elseif input.KeyCode == Enum.KeyCode.U then
+            -- Перемикання фрикама по кнопці U
+            freecamToggleObj.SetState(not freecamActive)
+        end
     end
 end)
 
