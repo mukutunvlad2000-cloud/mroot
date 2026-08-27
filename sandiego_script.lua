@@ -20,7 +20,7 @@ ScreenGui.Parent = parentObject
 ScreenGui.ResetOnSpawn = false
 
 -- ==========================================
--- 🔑 KEY SYSTEM GUI (FIXED & RELIABLE)
+-- 🔑 KEY SYSTEM GUI (MROOT-XXXX-XXXX FORMAT)
 -- ==========================================
 local KeyWindow = Instance.new("Frame")
 KeyWindow.Name = "KeyWindow"
@@ -48,7 +48,7 @@ local KeyBox = Instance.new("TextBox")
 KeyBox.Size = UDim2.new(1, -40, 0, 40)
 KeyBox.Position = UDim2.new(0, 20, 0, 60)
 KeyBox.BackgroundColor3 = Color3.fromRGB(18, 18, 20)
-KeyBox.PlaceholderText = "Paste your key here..."
+KeyBox.PlaceholderText = "MROOT-XXXX-XXXX"
 KeyBox.Text = ""
 KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyBox.PlaceholderColor3 = Color3.fromRGB(90, 90, 95)
@@ -69,7 +69,6 @@ SubmitBtn.Text = "VERIFY KEY"
 SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SubmitBtn.Font = Enum.Font.GothamBold
 SubmitBtn.TextSize = 13
-SubmitBtn.AutoButtonColor = true
 SubmitBtn.Parent = KeyWindow
 
 Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 4)
@@ -544,27 +543,31 @@ local freecamToggleObj = CreateToggle("Cinematic FreeCam Mode", false, function(
 end)
 
 -- ==========================================
--- AUTHORIZATION LOGIC (ROBUST)
+-- AUTHORIZATION LOGIC (MROOT- PREFIX CHECK)
 -- ==========================================
-local function TryUnlock()
+local function VerifyKey()
     local text = KeyBox.Text
-    if text and #text > 0 then
+    -- Видаляємо зайві пробіли з початку і кінця
+    text = string.gsub(text, "^%s*(.-)%s*$", "%1")
+    
+    -- Перевіряємо, чи починається з MROOT- і чи достатня довжина ключа
+    if string.sub(string.upper(text), 1, 6) == "MROOT-" and #text >= 10 then
         KeyWindow:Destroy()
         OpenBtn.Visible = true
         FpsFrame.Visible = true
         MainWindow.Visible = true
     else
-        InfoLabel.Text = "Error: Key box is empty!"
-        InfoLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
+        KeyBox.Text = ""
+        KeyBox.PlaceholderText = "Invalid! Use MROOT-XXXX-XXXX"
+        BoxStroke.Color = Color3.fromRGB(180, 40, 40)
     end
 end
 
-SubmitBtn.MouseButton1Click:Connect(TryUnlock)
-SubmitBtn.MouseButton1Up:Connect(TryUnlock)
+SubmitBtn.MouseButton1Click:Connect(VerifyKey)
 
 KeyBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
-        TryUnlock()
+        VerifyKey()
     end
 end)
 
