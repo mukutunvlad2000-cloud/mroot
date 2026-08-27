@@ -20,7 +20,7 @@ ScreenGui.Parent = parentObject
 ScreenGui.ResetOnSpawn = false
 
 -- ==========================================
--- 🔑 KEY SYSTEM GUI (ENGLISH)
+-- 🔑 KEY SYSTEM GUI (FIXED & RELIABLE)
 -- ==========================================
 local KeyWindow = Instance.new("Frame")
 KeyWindow.Name = "KeyWindow"
@@ -48,12 +48,13 @@ local KeyBox = Instance.new("TextBox")
 KeyBox.Size = UDim2.new(1, -40, 0, 40)
 KeyBox.Position = UDim2.new(0, 20, 0, 60)
 KeyBox.BackgroundColor3 = Color3.fromRGB(18, 18, 20)
-KeyBox.PlaceholderText = "Enter key from bot (@Mrootik_bot)..."
+KeyBox.PlaceholderText = "Paste your key here..."
 KeyBox.Text = ""
 KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyBox.PlaceholderColor3 = Color3.fromRGB(90, 90, 95)
 KeyBox.Font = Enum.Font.Gotham
 KeyBox.TextSize = 13
+KeyBox.ClearTextOnFocus = false
 KeyBox.Parent = KeyWindow
 
 Instance.new("UICorner", KeyBox).CornerRadius = UDim.new(0, 4)
@@ -68,6 +69,7 @@ SubmitBtn.Text = "VERIFY KEY"
 SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SubmitBtn.Font = Enum.Font.GothamBold
 SubmitBtn.TextSize = 13
+SubmitBtn.AutoButtonColor = true
 SubmitBtn.Parent = KeyWindow
 
 Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 4)
@@ -76,7 +78,7 @@ local InfoLabel = Instance.new("TextLabel")
 InfoLabel.Size = UDim2.new(1, -40, 0, 30)
 InfoLabel.Position = UDim2.new(0, 20, 0, 165)
 InfoLabel.BackgroundTransparency = 1
-InfoLabel.Text = "Get your key from bot: @Mrootik_bot"
+InfoLabel.Text = "Get your key from bot: @mrootik_bot"
 InfoLabel.TextColor3 = Color3.fromRGB(120, 120, 125)
 InfoLabel.Font = Enum.Font.Gotham
 InfoLabel.TextSize = 11
@@ -542,30 +544,27 @@ local freecamToggleObj = CreateToggle("Cinematic FreeCam Mode", false, function(
 end)
 
 -- ==========================================
--- AUTHORIZATION & TOGGLE LOGIC (FIXED)
+-- AUTHORIZATION LOGIC (ROBUST)
 -- ==========================================
-local function VerifyAndOpen()
-    local enteredText = KeyBox.Text
-    -- Прибираємо зайві пробіли з початку і кінця
-    enteredText = string.gsub(enteredText, "^%s*(.-)%s*$", "%1")
-    
-    if #enteredText > 0 then
+local function TryUnlock()
+    local text = KeyBox.Text
+    if text and #text > 0 then
         KeyWindow:Destroy()
         OpenBtn.Visible = true
         FpsFrame.Visible = true
         MainWindow.Visible = true
     else
-        KeyBox.Text = ""
-        KeyBox.PlaceholderText = "Enter valid key!"
-        BoxStroke.Color = Color3.fromRGB(180, 40, 40)
+        InfoLabel.Text = "Error: Key box is empty!"
+        InfoLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
     end
 end
 
-SubmitBtn.MouseButton1Click:Connect(VerifyAndOpen)
+SubmitBtn.MouseButton1Click:Connect(TryUnlock)
+SubmitBtn.MouseButton1Up:Connect(TryUnlock)
 
 KeyBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
-        VerifyAndOpen()
+        TryUnlock()
     end
 end)
 
