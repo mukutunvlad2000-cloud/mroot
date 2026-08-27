@@ -262,10 +262,10 @@ local function AddTgLock(pageName)
     LockLabel.Size = UDim2.new(1, -20, 1, -20)
     LockLabel.Position = UDim2.new(0, 10, 0, 10)
     LockLabel.BackgroundTransparency = 1
-    LockLabel.Text = "All functions can be bought in tg - @Iyd1k"
+    LockLabel.Text = "All functions can be bought in TG:\n@Iyd1k or @Managerm1vlir"
     LockLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
     LockLabel.Font = Enum.Font.GothamBold
-    LockLabel.TextSize = 18
+    LockLabel.TextSize = 16
     LockLabel.TextWrapped = true
     LockLabel.TextXAlignment = Enum.TextXAlignment.Center
     LockLabel.TextYAlignment = Enum.TextYAlignment.Center
@@ -276,13 +276,13 @@ AddTgLock("Combat")
 AddTgLock("Utils")
 AddTgLock("Settings")
 
--- Спеціальна сторінка Config / Plus Version з твоїми контактами
+-- Сторінка Config / Plus Version
 local ConfigPage = pages["Config"]
 local PlusInfoLabel = Instance.new("TextLabel")
 PlusInfoLabel.Size = UDim2.new(1, -20, 1, -20)
 PlusInfoLabel.Position = UDim2.new(0, 10, 0, 10)
 PlusInfoLabel.BackgroundTransparency = 1
-PlusInfoLabel.Text = "MRoot Plus Version coming soon!\nBuy & info in Telegram:\nManager: @Managerm1vlir\nor @Iyd1k"
+PlusInfoLabel.Text = "MRoot Plus Version coming soon!\nBuy & info in Telegram:\n@Managerm1vlir / @Iyd1k"
 PlusInfoLabel.TextColor3 = Color3.fromRGB(200, 200, 205)
 PlusInfoLabel.Font = Enum.Font.GothamBold
 PlusInfoLabel.TextSize = 16
