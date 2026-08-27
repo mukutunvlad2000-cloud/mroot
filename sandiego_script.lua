@@ -1,4 +1,4 @@
--- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH KEY SYSTEM ]] --
+-- [[ ULTRA-MINIMAL STEALTH HUD XL • MROOT BETA FINAL RELEASE WITH FREEFIX ]] --
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -10,7 +10,6 @@ local StarterGui = game:GetService("StarterGui")
 local LocalPlayer = Players.LocalPlayer
 local parentObject = (syn and syn.protect_gui and CoreGui) or CoreGui:FindFirstChild("RobloxGui") or LocalPlayer:WaitForChild("PlayerGui")
 
--- Очистка старых сессий интерфейса для предотвращения конфликтов
 if parentObject:FindFirstChild("StealthHubXL") then 
     parentObject.StealthHubXL:Destroy() 
 end
@@ -84,7 +83,7 @@ InfoLabel.TextSize = 11
 InfoLabel.Parent = KeyWindow
 
 -- ==========================================
--- 🎛️ ИНТЕРФЕЙС И ГЛАВНОЕ МЕНЮ (ИЗНАЧАЛЬНО СКРЫТЫ)
+-- 🎛️ ИНТЕРФЕЙС И ГЛАВНОЕ МЕНЮ
 -- ==========================================
 local OpenBtn = Instance.new("TextButton")
 OpenBtn.Name = "OpenBtn"
@@ -96,7 +95,7 @@ OpenBtn.TextColor3 = Color3.fromRGB(160, 160, 165)
 OpenBtn.Font = Enum.Font.RobotoMono
 OpenBtn.TextSize = 13
 OpenBtn.AutoButtonColor = false
-OpenBtn.Visible = false -- Скрыто до ввода ключа
+OpenBtn.Visible = false
 OpenBtn.Parent = ScreenGui
 
 local OpenCorner = Instance.new("UICorner")
@@ -114,7 +113,7 @@ FpsFrame.Size = UDim2.new(0, 140, 0, 40)
 FpsFrame.Position = UDim2.new(0.5, 60, 0, 11)
 FpsFrame.BackgroundTransparency = 1
 FpsFrame.BorderSizePixel = 0
-FpsFrame.Visible = false -- Скрыто до ввода ключа
+FpsFrame.Visible = false
 FpsFrame.Parent = ScreenGui
 
 local FpsLabel = Instance.new("TextLabel")
@@ -150,7 +149,7 @@ MainWindow.Size = UDim2.new(0, 520, 0, 340)
 MainWindow.Position = UDim2.new(0.5, -260, 0.5, -170)
 MainWindow.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
 MainWindow.BorderSizePixel = 0
-MainWindow.Visible = false -- Скрыто до ввода ключа
+MainWindow.Visible = false
 MainWindow.Parent = ScreenGui
 
 local WindowCorner = Instance.new("UICorner")
@@ -263,7 +262,7 @@ local function AddTgLock(pageName)
     LockLabel.Size = UDim2.new(1, -20, 1, -20)
     LockLabel.Position = UDim2.new(0, 10, 0, 10)
     LockLabel.BackgroundTransparency = 1
-    LockLabel.Text = "Все функции можно купить в tg - @Iyd1k"
+    LockLabel.Text = "Всі функції можна купити в tg - @Iyd1k"
     LockLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
     LockLabel.Font = Enum.Font.GothamBold
     LockLabel.TextSize = 18
@@ -451,10 +450,10 @@ CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
     
     if freecamActive then
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
-        MainWindow:TweenSize(UDim2.new(0, 360, 0, 220), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        OpenBtn:TweenSize(UDim2.new(0, 70, 0, 24), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        FpsFrame:TweenSize(UDim2.new(0, 90, 0, 25), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        FpsLabel.TextSize = 14
+        
+        -- СКРЫВАЕМ МЕНЮ И КНОПКУ ОТКРЫТИЯ ПРИ ФРИКАМЕ
+        MainWindow.Visible = false
+        OpenBtn.Visible = false
         
         if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
@@ -506,10 +505,9 @@ CreateToggle("Cinematic FreeCam Mode", false, function(enabled)
         end
         
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-        MainWindow:TweenSize(UDim2.new(0, 520, 0, 340), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        OpenBtn:TweenSize(UDim2.new(0, 95, 0, 32), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        FpsFrame:TweenSize(UDim2.new(0, 120, 0, 35), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-        FpsLabel.TextSize = 20
+        
+        -- ВОЗВРАЩАЕМ КНОПКУ МЕНЮ НАЗАД ПРИ ОТКЛЮЧЕНИИ ФРИКАМА
+        OpenBtn.Visible = true
         
         for _, obj in pairs(savedGuis) do
             if typeof(obj) == "RBXScriptConnection" then
@@ -527,9 +525,8 @@ end)
 -- ==========================================
 SubmitBtn.MouseButton1Click:Connect(function()
     local enteredText = KeyBox.Text
-    -- Проверка ключа (по сути если длина есть или начинается с MROOT-)
     if string.sub(enteredText, 1, 6) == "MROOT-" or #enteredText > 5 then
-        KeyWindow:Destroy() -- Удаляем окно ввода ключа
+        KeyWindow:Destroy()
         OpenBtn.Visible = true
         FpsFrame.Visible = true
         MainWindow.Visible = true
@@ -542,7 +539,7 @@ end)
 
 local isVisible = true
 local function ToggleGui()
-    if MainWindow then
+    if MainWindow and not freecamActive then
         isVisible = not isVisible
         MainWindow.Visible = isVisible
     end
@@ -551,7 +548,7 @@ end
 OpenBtn.MouseButton1Click:Connect(ToggleGui)
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if not gameProcessed and input.KeyCode == Enum.KeyCode.RightShift then
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.RightShift and not freecamActive then
         ToggleGui()
     end
 end)
